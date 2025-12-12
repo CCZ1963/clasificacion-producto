@@ -8,7 +8,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userId;
 
     @Column(name = "Nombre", nullable = false)
     private String userNomb;
@@ -26,12 +26,12 @@ public class Usuario {
     }
 
     // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long userId) { this.id = id; }
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
 
-    public String getEmail() { return userEmail; }
-    public void setEmail(String userEmail) { this.userEmail = userEmail; }
+    public String getUserEmail() { return userEmail; }
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 
-    public String getNombre() { return userNomb; }
-    public void setNombre(String userNomb) { this.userNomb = userNomb; }
+    public String getUserNomb() { return userNomb; }
+    public void setUserNomb(String userNomb) { this.userNomb = userNomb; }
 }

@@ -10,16 +10,16 @@ public class Comentario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long comentId;
 
     @Column(name = "Fecha")
-    private LocalDateTime fechaAnalisis;
+    private LocalDateTime comentFecha;
 
     @Column(name = "Comentario", nullable = false, length = 150)
-    private String texto;
+    private String comentTexto;
 
     @Column(name="Clasificación", nullable = false)
-    private String clasificacion;
+    private String comentClasif;
 
     // 🔗 Relación: Muchos comentarios → 1 usuario
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,24 +35,24 @@ public class Comentario {
     public Comentario() {}
 
     // Constructor útil (sin usuario aún —lo ajustaremos en el servicio)
-    public Comentario(String texto, String clasificacion) {
-        this.texto = texto;
-        this.clasificacion = clasificacion;
-        this.fechaAnalisis = LocalDateTime.now();
+    public Comentario(String comentTexto, String comentClasif) {
+        this.comentTexto = comentTexto;
+        this.comentClasif = comentClasif;
+        this.comentFecha = LocalDateTime.now();
     }
 
     // Getters y Setters (incluyendo usuario)
-    public Long getId() { return id; }
-    public void setId(Long comentId) { this.id = id; }
+    public Long getComentId() { return comentId; }
+    public void setComentId(Long comentId) { this.comentId = this.comentId; }
 
-    public String getTexto() { return texto; }
-    public void setTexto(String comentTexto) { this.texto = texto; }
+    public String getComentTexto() { return comentTexto; }
+    public void setComentTexto(String comentTexto) { this.comentTexto = this.comentTexto; }
 
-    public String getSentimiento() { return clasificacion; }
-    public void setSentimiento(String sentimiento) { this.clasificacion = clasificacion; }
+    public String getComentClasif() { return comentClasif; }
+    public void setComentClasif(String comentClasif) { this.comentClasif = comentClasif; }
 
-    public LocalDateTime getFechaAnalisis() { return fechaAnalisis; }
-    public void setFechaAnalisis(LocalDateTime fechaAnalisis) { this.fechaAnalisis = fechaAnalisis; }
+    public LocalDateTime getComentFecha() { return comentFecha; }
+    public void setComentFecha(LocalDateTime comentFecha) { this.comentFecha = comentFecha; }
 
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }

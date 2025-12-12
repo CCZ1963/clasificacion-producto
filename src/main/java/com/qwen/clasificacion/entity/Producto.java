@@ -8,7 +8,7 @@ public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long prodId;
 
     @Column(name = "Nombre", nullable = false)
     private String prodNomb;
@@ -22,9 +22,9 @@ public class Producto {
     }
 
     // Getters y Setters
-    public Long getId() { return id; }
-    public void setId(Long prodId) { this.id = id; }
+    public Long getProdId() { return prodId; }
+    public void setProdId(Long prodId) { this.prodId = prodId; }
 
-    public String getNombre() { return prodNomb; }
-    public void setNombre(String prodNomb) { this.prodNomb = prodNomb; }
+    public String getProdNomb() { return prodNomb; }
+    public void setProdNomb(String prodNomb) { this.prodNomb = prodNomb; }
 }
