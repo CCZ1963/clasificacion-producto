@@ -1,6 +1,8 @@
 package com.qwen.clasificacion.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +21,9 @@ public class Comentario {
     private String comentTexto;
 
     @Column(name="Clasificación", nullable = false)
-    private String comentClasif;
+    @Min(value = 1, message = "La clasificación mínima es 1")
+    @Max(value = 5, message = "La clasificación máxima es 5")
+    private int comentClasif;
 
     // 🔗 Relación: Muchos comentarios → 1 usuario
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,11 +39,21 @@ public class Comentario {
     public Comentario() {}
 
     // Constructor útil (sin usuario aún —lo ajustaremos en el servicio)
-    public Comentario(String comentTexto, String comentClasif) {
+    public Comentario(String comentTexto, int puntuacion) {
         this.comentTexto = comentTexto;
-        this.comentClasif = comentClasif;
+        this.comentClasif = puntuacion;
         this.comentFecha = LocalDateTime.now();
     }
+
+    /*
+    // En analizar()
+    Producto producto = productoRepository.findByProdNomb(prodNomb);
+    if (producto == null) {
+        producto = new Producto(prodNomb);
+        producto = productoRepository.save(producto);
+    }
+    comentario.setProducto(producto);
+    */
 
     // Getters y Setters (incluyendo usuario)
     public Long getComentId() { return comentId; }
@@ -48,8 +62,8 @@ public class Comentario {
     public String getComentTexto() { return comentTexto; }
     public void setComentTexto(String comentTexto) { this.comentTexto = this.comentTexto; }
 
-    public String getComentClasif() { return comentClasif; }
-    public void setComentClasif(String comentClasif) { this.comentClasif = comentClasif; }
+    public int getComentClasif() { return comentClasif; }
+    public void setComentClasif(int comentClasif) { this.comentClasif = comentClasif; }
 
     public LocalDateTime getComentFecha() { return comentFecha; }
     public void setComentFecha(LocalDateTime comentFecha) { this.comentFecha = comentFecha; }
