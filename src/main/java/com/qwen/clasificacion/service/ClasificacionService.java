@@ -9,6 +9,7 @@ import com.qwen.clasificacion.repository.ProductoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClasificacionService {
@@ -47,20 +48,36 @@ public class ClasificacionService {
         }
     }
 
-    public Comentario analizar(String comentTexto, String userEmail, String userNomb, int puntuacion) {
+    public Comentario analizar(String comentTexto, String userEmail, String userNomb, String prodNomb, int puntuacion) {
         // 1. Obtener o crear usuario
-        Usuario usuario = usuarioRepository.findByEmail(userEmail);
+        Usuario usuario = usuarioRepository.findByUserEmail(userEmail);
         if (usuario == null) {
             usuario = new Usuario(userEmail, userNomb);
             usuario = usuarioRepository.save(usuario);  // lo guarda y devuelve con ID asignado
         }
 
-        // 2. Clasificar
+        // 2. Producto
+        /* Producto producto = productoRepository.findByProdNomb(prodNomb);
+        if (producto == null) {
+            producto = new Producto(prodNomb);
+            producto = productoRepository.save(producto);
+        } */
+        // ✅ En ClasificacionService.analizar()
+
+        // 2. Producto
+        Optional<Producto> productoOpt = productoRepository.findByProdNomb(prodNomb);
+        Producto producto = productoOpt.orElseGet(() -> {
+            Producto nuevo = new Producto(prodNomb);
+            return productoRepository.save(nuevo);
+        });
+
+        // 3. Clasificar
         String clasificacion = clasificar(puntuacion);
 
-        // 3. Crear y guardar comentario con usuario
-        Comentario comentario = new Comentario(comentTexto, clasificacion);
+        // 4. Crear y guardar comentario con usuario
+        Comentario comentario = new Comentario(comentTexto, puntuacion);
         comentario.setUsuario(usuario);
+        comentario.setProducto(producto);
         return comentarioRepository.save(comentario);
     }
 

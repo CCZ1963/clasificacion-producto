@@ -27,6 +27,7 @@ public class ClasificacionController {
                 request.getComentTexto(),
                 request.getUserEmail(),
                 request.getUserNomb(),
+                request.getProdNomb(),
                 request.getPuntuacion()
         );
     }

@@ -39,4 +39,7 @@ public class ClasificacionRequest {
 
     public String getProdNomb() { return prodNomb; }
     public void setProdNomb(String prodNomb) { this.prodNomb = prodNomb; }
+
+    public int getPuntuacion() { return puntuacion; }
+    public void setPuntuacion(int puntuacion) { this.puntuacion = puntuacion; }
 }

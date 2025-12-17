@@ -1,8 +1,6 @@
 package com.qwen.clasificacion.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 
 import java.time.LocalDateTime;
 
@@ -21,18 +19,21 @@ public class Comentario {
     private String comentTexto;
 
     @Column(name="Clasificación", nullable = false)
-    @Min(value = 1, message = "La clasificación mínima es 1")
-    @Max(value = 5, message = "La clasificación máxima es 5")
+    /* @Min(value = 1, message = "La clasificación mínima es 1")
+    @Max(value = 5, message = "La clasificación máxima es 5") No se aplican en la base de datos
+    sino en la validación de beans cuando uso @Valid */
     private int comentClasif;
 
+    // Los nombres de columna en SQL no deben tener espacios
     // 🔗 Relación: Muchos comentarios → 1 usuario
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id Usuario", nullable = false)
+    @JoinColumn(name = "Id_Usuario", nullable = false)
     private Usuario usuario;
 
+    // Los nombres de columna en SQL no deben tener espacios
     // 🔗 Relación: Muchos comentarios → 1 usuario
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id Producto", nullable = false)
+    @JoinColumn(name = "Id_Producto", nullable = false)
     private Producto producto;
 
     // Constructor vacío
@@ -57,10 +58,10 @@ public class Comentario {
 
     // Getters y Setters (incluyendo usuario)
     public Long getComentId() { return comentId; }
-    public void setComentId(Long comentId) { this.comentId = this.comentId; }
+    public void setComentId(Long comentId) { this.comentId = comentId; }
 
     public String getComentTexto() { return comentTexto; }
-    public void setComentTexto(String comentTexto) { this.comentTexto = this.comentTexto; }
+    public void setComentTexto(String comentTexto) { this.comentTexto = comentTexto; }
 
     public int getComentClasif() { return comentClasif; }
     public void setComentClasif(int comentClasif) { this.comentClasif = comentClasif; }
@@ -73,4 +74,5 @@ public class Comentario {
 
     public Producto getProducto() { return producto; }
     public void setProducto(Producto producto) { this.producto = producto; }
+
 }
